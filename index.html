@@ -1,36 +1,255 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>แบบทดสอบวิชาสังคมศึกษา</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:'Sarabun',sans-serif;background:linear-gradient(180deg,#ecfdf5,#fff 45%,#ecfdf5);color:#1f2937}header{background:linear-gradient(135deg,#047857,#16a34a);color:white;text-align:center;padding:42px 18px;box-shadow:0 4px 22px rgba(0,0,0,.16)}h1{margin:0;font-size:clamp(25px,4vw,36px)}header p{margin:10px 0 0;font-size:17px}.container{max-width:980px;margin:28px auto;padding:0 16px 52px}.box,.question-card,.success-panel{background:#fff;border-radius:22px;padding:22px;margin-bottom:20px;box-shadow:0 6px 22px rgba(0,0,0,.09)}.box{border-left:8px solid #16a34a}h2{color:#047857;margin-top:0}.student-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;margin-top:18px}label{font-weight:700;color:#065f46}input[type=text],input[type=number]{width:100%;font-family:'Sarabun';font-size:16px;padding:13px;border-radius:14px;border:1px solid #d1d5db;margin-top:6px}.buttons{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:34px 0}button{font-family:'Sarabun';border:0;padding:15px 28px;border-radius:999px;font-size:17px;font-weight:700;cursor:pointer}.start-btn,.submit-btn{background:linear-gradient(135deg,#16a34a,#047857);color:#fff;box-shadow:0 8px 18px rgba(22,163,74,.28)}.reset-btn{background:#e5e7eb;color:#111827}#quizContainer,#quizButtons,.success-panel{display:none}.question-title{font-weight:700;font-size:18px;line-height:1.65;margin-bottom:12px}.choice{display:block;padding:13px 15px;margin:9px 0;border-radius:14px;background:#f9fafb;border:1px solid #e5e7eb;cursor:pointer;line-height:1.6}.choice:hover{background:#ecfdf5;border-color:#34d399}.warning{display:none;color:#dc2626;text-align:center;font-weight:700}.success-panel{border-top:7px solid #16a34a;text-align:center}.success-title{font-size:28px;font-weight:700;color:#047857}.success-sub{font-size:17px;line-height:1.8;color:#374151}footer{text-align:center;padding:28px;color:#6b7280;line-height:1.8}@media(max-width:700px){.student-grid{grid-template-columns:1fr}button{width:100%;max-width:320px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>แบบทดสอบวิชาสังคมศึกษา</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Sarabun', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(22, 163, 74, 0.22), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(4, 120, 87, 0.18), transparent 35%),
+        linear-gradient(180deg, #ecfdf5 0%, #ffffff 52%, #ecfdf5 100%);
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 820px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 32px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.14);
+      overflow: hidden;
+      border: 1px solid rgba(22, 163, 74, 0.16);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #047857, #16a34a);
+      color: white;
+      text-align: center;
+      padding: 44px 24px 38px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin: 14px 0 0;
+      font-size: clamp(16px, 2.4vw, 21px);
+      opacity: 0.96;
+      line-height: 1.65;
+    }
+
+    .content {
+      padding: 32px 28px 36px;
+      text-align: center;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 6px auto 28px;
+      max-width: 700px;
+    }
+
+    .info-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 18px;
+      padding: 16px 10px;
+    }
+
+    .info-box strong {
+      display: block;
+      color: #047857;
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+
+    .info-box span {
+      color: #374151;
+      font-size: 14.5px;
+      line-height: 1.4;
+    }
+
+    .note {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #374151;
+      margin: 0 auto 28px;
+      max-width: 680px;
+    }
+
+    .start-button {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(135deg, #16a34a, #047857);
+      color: white;
+      padding: 17px 34px;
+      border-radius: 999px;
+      font-size: 19px;
+      font-weight: 700;
+      box-shadow: 0 10px 24px rgba(22, 163, 74, 0.34);
+      transition: 0.2s;
+    }
+
+    .start-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(22, 163, 74, 0.42);
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: #6b7280;
+      font-size: 14.5px;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 680px) {
+      body {
+        align-items: stretch;
+        padding: 14px;
+      }
+
+      .card {
+        border-radius: 24px;
+      }
+
+      .hero {
+        padding: 36px 18px 30px;
+      }
+
+      .content {
+        padding: 26px 18px 30px;
+      }
+
+      .info {
+        grid-template-columns: 1fr;
+      }
+
+      .start-button {
+        width: 100%;
+        max-width: 330px;
+      }
+    }
+  </style>
 </head>
 <body>
-<header><h1>แบบทดสอบวิชาสังคมศึกษา</h1><p>เรื่อง เศรษฐศาสตร์เบื้องต้น ระบบเศรษฐกิจ และตลาด | ระดับชั้น ม.6</p></header>
-<main class="container">
-<section class="box"><h2>คำชี้แจง</h2><p>แบบทดสอบจำนวน 30 ข้อ ข้อละ 5 ตัวเลือก ให้นักเรียนเลือกคำตอบที่ถูกต้องที่สุดเพียงข้อเดียว เมื่อทำครบแล้วกด “ส่งคำตอบ” ระบบจะส่งผลให้ครู โดยไม่แสดงคะแนนและเฉลยบนหน้าจอ</p>
-<div class="student-grid"><div><label>ชื่อ-สกุลนักเรียน</label><input type="text" id="studentName" placeholder="เช่น นายกฤษณพล ทองอุ่น"></div><div><label>ห้อง</label><input type="text" id="studentRoom" placeholder="เช่น ม.6/1"></div><div><label>เลขที่</label><input type="number" id="studentNo" placeholder="เช่น 5"></div></div></section>
-<section id="successPanel" class="success-panel"><div class="success-title">ส่งคำตอบเรียบร้อยแล้ว</div><div class="success-sub">ขอบคุณที่เข้าร่วมทำแบบทดสอบ<br>ระบบได้บันทึกคำตอบของนักเรียนแล้ว</div><div id="sendStatus"></div></section>
-<div class="buttons" id="startBox"><button type="button" class="start-btn" onclick="startQuiz()">ทำแบบทดสอบ</button></div>
-<form id="quizForm"><div id="quizContainer"></div><div class="warning" id="warningText"></div><div class="buttons" id="quizButtons"><button type="button" class="submit-btn" onclick="submitAnswers()">ส่งคำตอบ</button><button type="button" class="reset-btn" onclick="resetQuiz()">ล้างคำตอบ</button></div></form>
-</main>
-<footer>จัดทำเพื่อใช้ประกอบการเรียนการสอนรายวิชาสังคมศึกษา<br>โดย ครูกฤษณพล ทองอุ่น<br>โรงเรียนเทพศิรินทร์ นนทบุรี</footer>
-<script>
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycbxDoOUgSXVr0JFuGb6s6m4AnhVrH2U8xnIJZ-tkbQ_ddcDdtMy9Um0OPEQmzJMRK09V/exec";
-const questions=[{"question": "ข้อใดอธิบายความหมายของวิชาเศรษฐศาสตร์ได้ถูกต้องที่สุด", "choices": ["วิชาที่ศึกษาเฉพาะการค้าระหว่างประเทศ", "วิชาที่ศึกษาการผลิตสินค้าอุตสาหกรรมเท่านั้น", "วิชาที่ศึกษาการเลือกใช้ทรัพยากรที่มีจำกัดเพื่อตอบสนองความต้องการที่ไม่จำกัดของมนุษย์", "วิชาที่ศึกษาเฉพาะการบริหารเงินของรัฐบาล", "วิชาที่ศึกษาเฉพาะพฤติกรรมของผู้บริโภคในตลาดสินค้า"], "answer": 2}, {"question": "เหตุใดความขาดแคลนจึงเป็นปัญหาพื้นฐานของวิชาเศรษฐศาสตร์", "choices": ["เพราะมนุษย์มีรายได้เท่ากันทุกคน", "เพราะทรัพยากรมีจำกัด แต่ความต้องการของมนุษย์มีไม่จำกัด", "เพราะรัฐบาลเป็นผู้ควบคุมราคาสินค้าทุกชนิด", "เพราะตลาดไม่สามารถผลิตสินค้าได้เลย", "เพราะผู้บริโภคไม่ต้องการสินค้าและบริการ"], "answer": 1}, {"question": "ข้อใดเป็นตัวอย่างของทรัพยากรทางเศรษฐศาสตร์", "choices": ["เงินตราเท่านั้น", "สินค้าและบริการที่ผลิตสำเร็จแล้วเท่านั้น", "ที่ดิน แรงงาน ทุน และผู้ประกอบการ", "ตลาดและผู้บริโภคเท่านั้น", "รัฐบาลและกฎหมายเท่านั้น"], "answer": 2}, {"question": "ข้อใดแสดงถึงการตัดสินใจทางเศรษฐศาสตร์อย่างชัดเจนที่สุด", "choices": ["นักเรียนซื้อของทุกอย่างที่ต้องการโดยไม่คำนึงถึงเงินที่มี", "ครอบครัวเลือกซื้ออาหารที่จำเป็นก่อนของฟุ่มเฟือยเพราะมีงบประมาณจำกัด", "โรงงานผลิตสินค้าโดยไม่สนใจต้นทุน", "ผู้บริโภคเลือกสินค้าจากสีของบรรจุภัณฑ์เท่านั้น", "รัฐบาลจัดสรรงบประมาณโดยไม่พิจารณาความจำเป็น"], "answer": 1}, {"question": "ข้อใดเป็นขอบข่ายของเศรษฐศาสตร์จุลภาค", "choices": ["อัตราเงินเฟ้อของประเทศ", "การว่างงานของประชากรทั้งประเทศ", "พฤติกรรมการเลือกซื้อสินค้าของผู้บริโภครายหนึ่ง", "การเติบโตทางเศรษฐกิจระดับประเทศ", "นโยบายการคลังของรัฐบาล"], "answer": 2}, {"question": "ข้อใดเป็นขอบข่ายของเศรษฐศาสตร์มหภาค", "choices": ["การตั้งราคาข้าวแกงของร้านอาหารหนึ่งร้าน", "การตัดสินใจซื้อโทรศัพท์ของนักเรียน", "รายได้ประชาชาติและการว่างงานของประเทศ", "ต้นทุนการผลิตของบริษัทแห่งหนึ่ง", "ความพึงพอใจของผู้บริโภคต่อสินค้าชนิดหนึ่ง"], "answer": 2}, {"question": "ข้อความใดเป็นตัวอย่างของเศรษฐศาสตร์ทางบวก", "choices": ["รัฐบาลควรเพิ่มเงินเดือนขั้นต่ำทันที", "ราคาน้ำมันที่สูงขึ้นทำให้ต้นทุนการขนส่งเพิ่มขึ้น", "ประชาชนควรออมเงินมากกว่าบริโภค", "สินค้าฟุ่มเฟือยไม่ควรมีขายในสังคม", "รัฐควรควบคุมราคาสินค้าทุกชนิด"], "answer": 1}, {"question": "ข้อความใดเป็นตัวอย่างของเศรษฐศาสตร์เชิงบรรทัดฐาน", "choices": ["เมื่อราคาสินค้าสูงขึ้น ปริมาณซื้อมีแนวโน้มลดลง", "อัตราเงินเฟ้อเพิ่มขึ้นจากปีก่อน", "รัฐบาลควรเก็บภาษีคนรวยในอัตราที่สูงขึ้น", "ต้นทุนการผลิตเพิ่มขึ้นเมื่อค่าแรงสูงขึ้น", "การผลิตต้องใช้ปัจจัยการผลิต"], "answer": 2}, {"question": "ปัญหาพื้นฐานทางเศรษฐกิจข้อใดเกี่ยวข้องกับการเลือกชนิดสินค้าและบริการที่จะผลิต", "choices": ["ผลิตอะไร", "ผลิตอย่างไร", "ผลิตเพื่อใคร", "ผลิตเมื่อใด", "ผลิตที่ไหน"], "answer": 0}, {"question": "โรงงานเลือกใช้เครื่องจักรแทนแรงงานคนเพื่อลดต้นทุน การตัดสินใจนี้เกี่ยวข้องกับปัญหาพื้นฐานข้อใด", "choices": ["ผลิตอะไร", "ผลิตอย่างไร", "ผลิตเพื่อใคร", "ผลิตเท่าใด", "ผลิตเมื่อใด"], "answer": 1}, {"question": "บริษัทผลิตเสื้อกันหนาวราคาสูงเพื่อจำหน่ายให้กลุ่มผู้มีรายได้สูง สะท้อนปัญหาเศรษฐกิจข้อใด", "choices": ["ผลิตอะไร", "ผลิตอย่างไร", "ผลิตเพื่อใคร", "ผลิตที่ใด", "ผลิตด้วยปัจจัยใด"], "answer": 2}, {"question": "กิจกรรมใดจัดเป็นการผลิตในทางเศรษฐศาสตร์", "choices": ["การซื้อสินค้าจากร้านค้า", "การอ่านหนังสือเพื่อความบันเทิง", "การนำวัตถุดิบมาแปรรูปเป็นสินค้า", "การใช้เงินซื้ออาหาร", "การบริโภคสินค้าในครัวเรือน"], "answer": 2}, {"question": "ข้อใดเป็นตัวอย่างของกิจกรรมการบริโภค", "choices": ["โรงงานผลิตรองเท้า", "นักเรียนซื้ออาหารกลางวันรับประทาน", "พ่อค้าขนส่งสินค้าไปขาย", "บริษัทโฆษณาสินค้า", "ชาวนาปลูกข้าวเพื่อจำหน่าย"], "answer": 1}, {"question": "กิจกรรมใดแสดงถึงการกระจายสินค้า", "choices": ["ผู้ผลิตคิดค้นสินค้าใหม่", "แรงงานทำงานในโรงงาน", "ร้านค้าขนส่งผักจากแหล่งผลิตไปยังตลาด", "ครอบครัวรับประทานอาหาร", "นักลงทุนซื้อเครื่องจักร"], "answer": 2}, {"question": "ปัจจัยการผลิตข้อใดหมายถึงทรัพยากรธรรมชาติที่ใช้ในการผลิต", "choices": ["แรงงาน", "ทุน", "ที่ดิน", "ผู้ประกอบการ", "กำไร"], "answer": 2}, {"question": "ทักษะ ความรู้ และความสามารถของมนุษย์ในการทำงาน จัดเป็นปัจจัยการผลิตใด", "choices": ["ที่ดิน", "แรงงาน", "ทุน", "ผู้ประกอบการ", "วัตถุดิบ"], "answer": 1}, {"question": "ข้อใดจัดเป็นทุนในทางเศรษฐศาสตร์", "choices": ["เงินที่เก็บไว้โดยไม่ได้นำไปใช้ผลิต", "เครื่องจักร อาคารโรงงาน และอุปกรณ์การผลิต", "แรงงานฝีมือ", "ทรัพยากรธรรมชาติ", "ความต้องการของผู้บริโภค"], "answer": 1}, {"question": "ผู้ประกอบการมีบทบาทสำคัญอย่างไรในกระบวนการผลิต", "choices": ["เป็นผู้บริโภคสินค้าเพียงอย่างเดียว", "เป็นผู้กำหนดกฎหมายเศรษฐกิจ", "เป็นผู้รวบรวมปัจจัยการผลิต รับความเสี่ยง และตัดสินใจดำเนินธุรกิจ", "เป็นทรัพยากรธรรมชาติที่ใช้ผลิตสินค้า", "เป็นผู้กำหนดราคาสินค้าทุกชนิดในประเทศ"], "answer": 2}, {"question": "หากบริษัท A ต้องการขยายโรงงานแต่ขาดแรงงานฝีมือและเงินทุน ปัญหาหลักคือข้อใด", "choices": ["ขาดแคลนปัจจัยการผลิต", "ตลาดไม่มีผู้บริโภค", "สินค้ามีมากเกินความต้องการ", "ไม่มีปัญหาทางเศรษฐกิจ", "ผู้บริโภคมีรายได้สูงเกินไป"], "answer": 0}, {"question": "ระบบเศรษฐกิจหมายถึงข้อใด", "choices": ["วิธีการจัดการทรัพยากรเพื่อแก้ปัญหาพื้นฐานทางเศรษฐกิจของสังคม", "การซื้อขายสินค้าในตลาดเท่านั้น", "การเก็บภาษีของรัฐบาลเท่านั้น", "การผลิตสินค้าของเอกชนเท่านั้น", "รายได้ทั้งหมดของประชาชน"], "answer": 0}, {"question": "ลักษณะเด่นของระบบเศรษฐกิจทุนนิยมคือข้อใด", "choices": ["รัฐเป็นเจ้าของทรัพย์สินทั้งหมด", "เอกชนมีกรรมสิทธิ์ในทรัพย์สินและใช้กลไกราคาเป็นเครื่องมือสำคัญ", "ไม่มีการแข่งขันในตลาด", "ทุกคนมีรายได้เท่ากัน", "รัฐบาลเป็นผู้กำหนดการผลิตทั้งหมด"], "answer": 1}, {"question": "ลักษณะสำคัญของระบบเศรษฐกิจคอมมิวนิสต์คือข้อใด", "choices": ["เอกชนกำหนดการผลิตทั้งหมด", "รัฐเป็นเจ้าของปัจจัยการผลิตและวางแผนเศรษฐกิจจากส่วนกลาง", "ใช้กลไกราคาอย่างเสรี", "ผู้บริโภคตัดสินใจการผลิตทุกอย่าง", "ผู้ประกอบการแข่งขันกันอย่างเต็มที่"], "answer": 1}, {"question": "ข้อใดเป็นข้อดีของระบบเศรษฐกิจแบบผสม", "choices": ["ไม่มีบทบาทของรัฐบาลเลย", "ไม่มีการแข่งขันของเอกชน", "สามารถนำข้อดีของทุนนิยมและสังคมนิยมมาปรับใช้ร่วมกัน", "ประชาชนไม่มีสิทธิเลือกบริโภค", "รัฐกำหนดราคาสินค้าทุกชนิดเสมอ"], "answer": 2}, {"question": "ประเทศไทยมีระบบเศรษฐกิจใกล้เคียงกับข้อใดมากที่สุด", "choices": ["ทุนนิยมบริสุทธิ์", "คอมมิวนิสต์เต็มรูปแบบ", "เศรษฐกิจแบบผสม", "เศรษฐกิจแบบยังชีพเท่านั้น", "เศรษฐกิจที่ไม่มีตลาด"], "answer": 2}, {"question": "ตลาดในทางเศรษฐศาสตร์หมายถึงข้อใด", "choices": ["สถานที่ที่มีอาคารขายสินค้าเท่านั้น", "สถานที่ราชการที่ควบคุมราคา", "กระบวนการหรือกลไกที่ผู้ซื้อและผู้ขายติดต่อซื้อขายสินค้าและบริการกัน", "ร้านค้าที่ขายอาหารสดเท่านั้น", "แหล่งผลิตสินค้าอุตสาหกรรม"], "answer": 2}, {"question": "องค์ประกอบสำคัญของตลาดคือข้อใด", "choices": ["ผู้ซื้อ ผู้ขาย สินค้าหรือบริการ และราคา", "รัฐบาล ภาษี และงบประมาณ", "โรงงาน เครื่องจักร และแรงงาน", "ธนาคาร เงินฝาก และดอกเบี้ย", "รัฐสภา กฎหมาย และศาล"], "answer": 0}, {"question": "ตลาดแข่งขันสมบูรณ์มีลักษณะสำคัญข้อใด", "choices": ["มีผู้ขายเพียงรายเดียว", "สินค้าแตกต่างกันมากจนเปรียบเทียบไม่ได้", "มีผู้ซื้อและผู้ขายจำนวนมาก และไม่มีใครมีอำนาจกำหนดราคา", "รัฐกำหนดราคาทุกชนิด", "ผู้ขายสามารถกีดกันผู้ผลิตรายใหม่ได้ทั้งหมด"], "answer": 2}, {"question": "ข้อใดเป็นเหตุผลที่ตลาดแข่งขันสมบูรณ์ถูกมองว่าเป็นตลาดในอุดมคติ", "choices": ["ผู้ขายสามารถตั้งราคาสูงได้ตามต้องการ", "ผู้บริโภคไม่มีทางเลือก", "มีการแข่งขันสูง ทำให้ทรัพยากรถูกใช้ค่อนข้างมีประสิทธิภาพ", "รัฐบาลควบคุมทุกขั้นตอน", "ผู้ผลิตรายใหม่เข้าสู่ตลาดไม่ได้"], "answer": 2}, {"question": "ตลาดที่มีผู้ขายเพียงรายเดียวและมีอำนาจกำหนดราคาสูง เรียกว่าอะไร", "choices": ["ตลาดแข่งขันสมบูรณ์", "ตลาดผูกขาด", "ตลาดกึ่งแข่งขันกึ่งผูกขาด", "ตลาดผู้ขายน้อยราย", "ตลาดแรงงาน"], "answer": 1}, {"question": "หากราคาสินค้าชนิดหนึ่งสูงขึ้นมากและมีผู้ขายรายใหม่เข้ามาในตลาดจำนวนมาก แสดงให้เห็นบทบาทของสิ่งใด", "choices": ["กลไกราคาในการจูงใจผู้ผลิต", "การไม่มีความต้องการของผู้บริโภค", "การห้ามแข่งขันของรัฐ", "การยกเลิกระบบตลาด", "การลดลงของกำไรอย่างแน่นอน"], "answer": 0}];
-const quizContainer=document.getElementById("quizContainer");
-function getChoiceLetter(i){return ["ก","ข","ค","ง","จ"][i];}
-function renderQuiz(){quizContainer.innerHTML="";questions.forEach((item,index)=>{let choicesHTML="";item.choices.forEach((choice,choiceIndex)=>{choicesHTML+=`<label class="choice"><input type="radio" name="q${index}" value="${choiceIndex}"> ${getChoiceLetter(choiceIndex)}. ${choice}</label>`;});const card=document.createElement("div");card.className="question-card";card.id=`question-${index}`;card.innerHTML=`<div class="question-title">${index+1}. ${item.question}</div>${choicesHTML}`;quizContainer.appendChild(card);});}
-function validStudent(){return document.getElementById("studentName").value.trim()&&document.getElementById("studentRoom").value.trim()&&document.getElementById("studentNo").value.trim();}
-function warn(t, target=".box"){const w=document.getElementById("warningText");w.textContent=t;w.style.display="block";document.querySelector(target).scrollIntoView({behavior:"smooth",block:"start"});}
-function startQuiz(){if(!validStudent()){warn("กรุณากรอกชื่อ-สกุล ห้อง และเลขที่ก่อนเริ่มทำแบบทดสอบ");return}document.getElementById("warningText").style.display="none";quizContainer.style.display="block";document.getElementById("quizButtons").style.display="flex";document.getElementById("startBox").style.display="none";document.getElementById("successPanel").style.display="none";setTimeout(()=>quizContainer.scrollIntoView({behavior:"smooth"}),100);}
-function buildResult(){let score=0,wrongAnswers=[],allAnswers=[];questions.forEach((item,index)=>{const selected=document.querySelector(`input[name="q${index}"]:checked`);const sv=selected?Number(selected.value):null;const ok=sv===item.answer;if(ok)score++;const rec={number:index+1,question:item.question,selectedLetter:sv===null?"-":getChoiceLetter(sv),selectedText:sv===null?"ไม่ได้ตอบ":item.choices[sv],correctLetter:getChoiceLetter(item.answer),correctText:item.choices[item.answer],isCorrect:ok};allAnswers.push(rec);if(!ok)wrongAnswers.push(rec);});return {score,total:questions.length,percent:((score/questions.length)*100).toFixed(2),wrongAnswers,allAnswers};}
-async function sendResult(r){const status=document.getElementById("sendStatus");if(!WEB_APP_URL||WEB_APP_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT")){status.style.color="#dc2626";status.innerHTML="<br>ยังไม่ได้ใส่ URL ของ Google Apps Script จึงยังส่งอีเมลไม่ได้";return}status.style.color="#374151";status.innerHTML="<br>กำลังส่งข้อมูล...";const payload={name:document.getElementById("studentName").value.trim(),room:document.getElementById("studentRoom").value.trim(),studentNo:document.getElementById("studentNo").value.trim(),quizTitle:"แบบทดสอบวิชาสังคมศึกษา",score:r.score,total:r.total,percent:r.percent,wrongAnswers:r.wrongAnswers,allAnswers:r.allAnswers,submittedAt:new Date().toLocaleString("th-TH",{timeZone:"Asia/Bangkok"})};try{await fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});status.style.color="#047857";status.innerHTML="<br>ส่งข้อมูลสำเร็จ";}catch(e){status.style.color="#dc2626";status.innerHTML="<br>ส่งข้อมูลไม่สำเร็จ กรุณาแจ้งครูผู้สอน";}}
-function submitAnswers(){if(!validStudent()){warn("กรุณากรอกชื่อ-สกุล ห้อง และเลขที่ก่อนส่งคำตอบ");return}let answered=0;questions.forEach((_,i)=>{if(document.querySelector(`input[name="q${i}"]:checked`))answered++;});if(answered<questions.length){document.getElementById("warningText").textContent="กรุณาตอบคำถามให้ครบทุกข้อก่อนส่งคำตอบ";document.getElementById("warningText").style.display="block";const first=questions.findIndex((_,i)=>!document.querySelector(`input[name="q${i}"]:checked`));document.getElementById(`question-${first}`).scrollIntoView({behavior:"smooth",block:"center"});return}document.getElementById("warningText").style.display="none";const r=buildResult();quizContainer.style.display="none";document.getElementById("quizButtons").style.display="none";document.getElementById("successPanel").style.display="block";window.scrollTo({top:0,behavior:"smooth"});sendResult(r);}
-function resetQuiz(){document.getElementById("quizForm").reset();document.getElementById("studentName").value="";document.getElementById("studentRoom").value="";document.getElementById("studentNo").value="";document.getElementById("warningText").style.display="none";document.getElementById("sendStatus").innerHTML="";quizContainer.style.display="none";document.getElementById("quizButtons").style.display="none";document.getElementById("successPanel").style.display="none";document.getElementById("startBox").style.display="flex";window.scrollTo({top:0,behavior:"smooth"});}
-renderQuiz();
-</script>
-</body></html>
+  <main class="card">
+    <section class="hero">
+      <div class="badge">ระดับชั้นมัธยมศึกษาปีที่ 6</div>
+      <h1>แบบทดสอบวิชาสังคมศึกษา</h1>
+      <p class="subtitle">เรื่อง เศรษฐศาสตร์เบื้องต้น ระบบเศรษฐกิจ และตลาด</p>
+    </section>
+
+    <section class="content">
+      <div class="info">
+        <div class="info-box">
+          <strong>30</strong>
+          <span>ข้อสอบ</span>
+        </div>
+        <div class="info-box">
+          <strong>5</strong>
+          <span>ตัวเลือกต่อข้อ</span>
+        </div>
+        <div class="info-box">
+          <strong>ส่งผล</strong>
+          <span>ให้ครูอัตโนมัติ</span>
+        </div>
+      </div>
+
+      <p class="note">
+        ให้นักเรียนกรอกชื่อ-สกุล ห้อง และเลขที่ ก่อนเริ่มทำแบบทดสอบ
+        เมื่อส่งคำตอบแล้ว ระบบจะแสดงเฉพาะข้อความว่าส่งคำตอบเรียบร้อยแล้ว
+      </p>
+
+      
+      <div id="statusBox" style="margin: 0 auto 18px; font-weight: 700; color: #047857;">
+        กำลังตรวจสอบสถานะการทำแบบทดสอบ...
+      </div>
+
+      <a class="start-button" id="startQuizLink" href="quiz.html">เข้าสู่แบบทดสอบ</a>
+
+
+      <div class="footer">
+        จัดทำเพื่อใช้ประกอบการเรียนการสอนรายวิชาสังคมศึกษา<br>
+        โดย ครูกฤษณพล ทองอุ่น<br>
+        โรงเรียนเทพศิรินทร์ นนทบุรี
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /*
+      ใส่ Web App URL ของ Google Apps Script ตัวเดียวกับ quiz.html
+      ถ้ายังไม่ใส่ URL หน้าแรกจะยังแสดงปุ่มตามปกติ
+    */
+    const WEB_APP_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    function quizStatusCallback(data) {
+      const statusBox = document.getElementById("statusBox");
+      const startQuizLink = document.getElementById("startQuizLink");
+
+      if (!data || data.open !== true) {
+        statusBox.style.color = "#dc2626";
+        statusBox.innerHTML = "ขณะนี้ยังไม่เปิดให้ทำแบบทดสอบ";
+        startQuizLink.style.pointerEvents = "none";
+        startQuizLink.style.opacity = "0.55";
+        startQuizLink.innerHTML = "ยังไม่เปิดให้ทำแบบทดสอบ";
+        return;
+      }
+
+      statusBox.style.color = "#047857";
+      statusBox.innerHTML = "สถานะ: เปิดให้ทำแบบทดสอบ";
+      startQuizLink.style.pointerEvents = "auto";
+      startQuizLink.style.opacity = "1";
+      startQuizLink.innerHTML = "เข้าสู่แบบทดสอบ";
+    }
+
+    function loadQuizStatus() {
+      if (!WEB_APP_URL || WEB_APP_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT")) {
+        document.getElementById("statusBox").innerHTML = "ยังไม่ได้เชื่อมระบบเปิด/ปิด แต่สามารถเข้าสู่แบบทดสอบได้";
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = WEB_APP_URL + "?action=status&callback=quizStatusCallback&ts=" + Date.now();
+      script.onerror = function() {
+        document.getElementById("statusBox").style.color = "#dc2626";
+        document.getElementById("statusBox").innerHTML = "ไม่สามารถตรวจสอบสถานะได้";
+      };
+      document.body.appendChild(script);
+    }
+
+    loadQuizStatus();
+  </script>
+</body>
+</html>

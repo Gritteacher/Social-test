@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>จัดการแบบทดสอบ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Sarabun', sans-serif;
+      background: linear-gradient(180deg, #ecfdf5, #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      color: #1f2937;
+    }
+    .card {
+      width: 100%;
+      max-width: 620px;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.13);
+      padding: 30px;
+      text-align: center;
+      border-top: 8px solid #16a34a;
+    }
+    h1 {
+      margin: 0;
+      color: #047857;
+      font-size: 30px;
+    }
+    p {
+      line-height: 1.7;
+      color: #4b5563;
+    }
+    .status {
+      margin: 22px 0;
+      padding: 18px;
+      border-radius: 18px;
+      background: #f3f4f6;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    input {
+      width: 100%;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 17px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
+      margin: 10px 0 18px;
+      text-align: center;
+    }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button, a {
+      font-family: 'Sarabun', sans-serif;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .open {
+      background: linear-gradient(135deg, #16a34a, #047857);
+      color: white;
+    }
+    .close {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: white;
+    }
+    .back {
+      background: #e5e7eb;
+      color: #111827;
+      margin-top: 18px;
+    }
+    .message {
+      margin-top: 16px;
+      font-weight: 700;
+    }
+    @media (max-width: 560px) {
+      button, a { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>จัดการแบบทดสอบ</h1>
+    <p>ใช้หน้านี้สำหรับเปิด/ปิดการทำแบบทดสอบของนักเรียน</p>
+
+    <div id="statusBox" class="status">กำลังตรวจสอบสถานะ...</div>
+
+    <input type="password" id="adminKey" placeholder="กรอกรหัสผ่านผู้ดูแล">
+
+    <div class="buttons">
+      <button class="open" onclick="setQuizStatus(true)">เปิดให้ทำแบบทดสอบ</button>
+      <button class="close" onclick="setQuizStatus(false)">ปิดการทำแบบทดสอบ</button>
+    </div>
+
+    <div id="messageBox" class="message"></div>
+
+    <a class="back" href="index.html">กลับหน้าแรก</a>
+  </main>
+
+  <script>
+    /*
+      ใส่ Web App URL ของ Google Apps Script
+      ต้องเป็น URL เดียวกับที่ใส่ใน index.html และ quiz.html
+    */
+    const WEB_APP_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    function adminStatusCallback(data) {
+      const statusBox = document.getElementById("statusBox");
+
+      if (data && data.open === true) {
+        statusBox.style.background = "#dcfce7";
+        statusBox.style.color = "#047857";
+        statusBox.innerHTML = "สถานะปัจจุบัน: เปิดให้ทำแบบทดสอบ";
+      } else {
+        statusBox.style.background = "#fee2e2";
+        statusBox.style.color = "#dc2626";
+        statusBox.innerHTML = "สถานะปัจจุบัน: ปิดการทำแบบทดสอบ";
+      }
+    }
+
+    function adminSetStatusCallback(data) {
+      const messageBox = document.getElementById("messageBox");
+
+      if (!data || data.status !== "success") {
+        messageBox.style.color = "#dc2626";
+        messageBox.innerHTML = data && data.message ? data.message : "ดำเนินการไม่สำเร็จ";
+        return;
+      }
+
+      messageBox.style.color = "#047857";
+      messageBox.innerHTML = data.message || "ดำเนินการสำเร็จ";
+      adminStatusCallback(data);
+    }
+
+    function loadStatus() {
+      if (!WEB_APP_URL || WEB_APP_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT")) {
+        document.getElementById("statusBox").innerHTML = "ยังไม่ได้ใส่ Web App URL";
+        document.getElementById("statusBox").style.color = "#dc2626";
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = WEB_APP_URL + "?action=status&callback=adminStatusCallback&ts=" + Date.now();
+      document.body.appendChild(script);
+    }
+
+    function setQuizStatus(open) {
+      const key = document.getElementById("adminKey").value.trim();
+
+      if (!key) {
+        document.getElementById("messageBox").style.color = "#dc2626";
+        document.getElementById("messageBox").innerHTML = "กรุณากรอกรหัสผ่านผู้ดูแล";
+        return;
+      }
+
+      if (!WEB_APP_URL || WEB_APP_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT")) {
+        document.getElementById("messageBox").style.color = "#dc2626";
+        document.getElementById("messageBox").innerHTML = "ยังไม่ได้ใส่ Web App URL";
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = WEB_APP_URL
+        + "?action=setStatus"
+        + "&open=" + encodeURIComponent(open)
+        + "&key=" + encodeURIComponent(key)
+        + "&callback=adminSetStatusCallback"
+        + "&ts=" + Date.now();
+
+      document.body.appendChild(script);
+    }
+
+    loadStatus();
+  </script>
+</body>
+</html>
